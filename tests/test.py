@@ -21,3 +21,6 @@ def test_ultrachronic():
 	runner = CliRunner()
 	result = runner.invoke(main, ['--arg1', '1', '--arg2', '2', '--reps', '3'])
 	assert result.exit_code == 0
+
+if __name__ == '__main__':
+	test_ultrachronic()
