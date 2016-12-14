@@ -11,6 +11,7 @@ setup(
     cmdclass=versioneer.get_cmdclass(),
     long_description=readme,
     packages=['ultrachronic'],
+    package_data={'ultrachronic': ['README.md']},
     url='https://github.com/yoavram/ultrachronic',
     license='MIT',
     author='Yoav Ram',
