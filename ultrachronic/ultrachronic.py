@@ -3,7 +3,7 @@ from uuid import uuid4
 import gzip
 import json
 from functools import wraps
-from concurrent.futures import ProcessPoolExecutor, as_completed
+import warnings
 
 try:
     import click
@@ -37,13 +37,24 @@ def jsonify_result(f):
     return wrapper
 
 
-def repeat(f, reps, **kwargs):
+def repeat(f, reps, cpus=0, **kwargs):
     fname = f.__name__
     print("Starting {} {} times with:".format(fname, reps))
     print(kwargs)
-    with ProcessPoolExecutor() as executor:
-        futures = [executor.submit(f, **kwargs) for _ in range(reps)]
-    for fut in as_completed(futures):
-        if not fut.result():
-            print("{} failed".format(fname))
+    if cpus == 1:
+        for _ in range(reps):
+            try:
+                f(**kwargs)
+            except Exception as e:
+                warnings.warn(e)
+    else:
+        from multiprocessing import cpu_count
+        from concurrent.futures import ProcessPoolExecutor, as_completed
+        if cpus < 1:
+            cpus = cpu_count()
+        with ProcessPoolExecutor(cpus) as executor:
+            futures = [executor.submit(f, **kwargs) for _ in range(reps)]
+        for fut in as_completed(futures):
+            if fut.exception():
+                warnings.warn(fut.exception())
     print("Finished")
