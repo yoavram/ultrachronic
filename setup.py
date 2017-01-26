@@ -3,32 +3,37 @@ import warnings
 
 import versioneer
 
-with open('README.md') as f:
-    readme = f.read()
-
+readme = ''
+# try to load readme, only works when running in original repo
 try:
-    import requests
-    r = requests.post(
-        url='http://c.docverter.com/convert',
-        data={'to':'rst', 'from': 'markdown'},
-        files={'input_files[]': open('README.md','rb')}
-    )
-    assert r.ok    
-except ImportError:
-    warnings.warn("Failed importing requests, README will not be converted to rst")
-except ConnectionError:
-    warnings.warn("Failed to connect to docverter.com")
-except AssertionError:
-    warnings.warn("Bad response: {}".format(r.reason))
+    with open('README.md') as f:
+        readme = f.read()
+except FileNotFoundError:
+    warnings.warn("README not found")
 else:
-    readme = r.content.decode('utf8')
+    # try to convert README to rst, only works with internet connection and with requests installed
+    try:
+        import requests
+        r = requests.post(
+            url='http://c.docverter.com/convert',
+            data={'to':'rst', 'from': 'markdown'},
+            files={'input_files[]': open('README.md','rb')}
+        )
+        assert r.ok    
+    except ImportError:
+        warnings.warn("Failed importing requests, README will not be converted to rst")
+    except ConnectionError:
+        warnings.warn("Failed to connect to docverter.com")
+    except AssertionError:
+        warnings.warn("Bad response: {}".format(r.reason))
+    else:
+        readme = r.content.decode('utf8')
 
 setup(
     name='ultrachronic',
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
     packages=['ultrachronic'],
-    package_data={'ultrachronic': ['README.md']},
     url='https://github.com/yoavram/ultrachronic',
     license='MIT',
     author='Yoav Ram',
