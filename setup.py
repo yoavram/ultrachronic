@@ -1,10 +1,27 @@
 from setuptools import setup
+import warnings
 
 import versioneer
 
 with open('README.md') as f:
     readme = f.read()
 
+try:
+    import requests
+    r = requests.post(
+        url='http://c.docverter.com/convert',
+        data={'to':'rst', 'from': 'markdown'},
+        files={'input_files[]': open('README.md','rb')}
+    )
+    assert r.ok    
+except ImportError:
+    warnings.warn("Failed importing requests, README will not be converted to rst")
+except ConnectionError:
+    warnings.warn("Failed to connect to docverter.com")
+except AssertionError:
+    warnings.warn("Bad response: {}".format(r.reason))
+else:
+    readme = r.content.decode('utf8')
 
 setup(
     name='ultrachronic',
