@@ -5,6 +5,7 @@ import versioneer
 with open('README.md') as f:
     readme = f.read()
 
+
 setup(
     name='ultrachronic',
     version=versioneer.get_version(),
@@ -19,7 +20,7 @@ setup(
     description='Run parallel jobs and save results to json.gz files',
     install_requires=[        
     ],
-    extra_requires={
+    extras_require={
         'test': [
             'click>=5',
             'nose'
