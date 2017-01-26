@@ -46,7 +46,7 @@ def repeat(f, reps, cpus=0, **kwargs):
             try:
                 f(**kwargs)
             except Exception as e:
-                warnings.warn(e)
+                warnings.warn(str(e))
     else:
         from multiprocessing import cpu_count
         from concurrent.futures import ProcessPoolExecutor, as_completed
@@ -56,5 +56,5 @@ def repeat(f, reps, cpus=0, **kwargs):
             futures = [executor.submit(f, **kwargs) for _ in range(reps)]
         for fut in as_completed(futures):
             if fut.exception():
-                warnings.warn(fut.exception())
+                warnings.warn(str(fut.exception()))
     print("Finished")
