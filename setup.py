@@ -50,6 +50,9 @@ setup(
         'test': [
             'click>=5',
             'nose'
+        ],
+        'dist': [
+            'requests'
         ]
     }
 )
