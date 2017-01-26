@@ -1,5 +1,6 @@
 # Ultra Chronic
 
+[![PyPI version](https://badge.fury.io/py/ultrachronic.svg)](https://badge.fury.io/py/ultrachronic)
 [![Build Status](https://travis-ci.org/yoavram/ultrachronic.svg?branch=master)](https://travis-ci.org/yoavram/ultrachronic)
 [![codecov](https://codecov.io/gh/yoavram/ultrachronic/branch/master/graph/badge.svg)](https://codecov.io/gh/yoavram/ultrachronic)
 
