@@ -27,7 +27,6 @@ setup(
     name='ultrachronic',
     version=versioneer.get_version(),
     cmdclass=versioneer.get_cmdclass(),
-    long_description=readme,
     packages=['ultrachronic'],
     package_data={'ultrachronic': ['README.md']},
     url='https://github.com/yoavram/ultrachronic',
@@ -35,7 +34,17 @@ setup(
     author='Yoav Ram',
     author_email='yoav@yoavram.com',
     description='Run parallel jobs and save results to json.gz files',
-    install_requires=[        
+    long_description=readme,
+    classifiers=[
+        'Development Status :: 4 - Beta',
+        'Intended Audience :: Developers',
+        'Topic :: Software Development :: User Interfaces',
+        'License :: OSI Approved :: MIT License',
+        'Programming Language :: Python :: 3.4',
+        'Programming Language :: Python :: 3.5',
+        'Programming Language :: Python :: 3.6',
+    ],
+    install_requires=[
     ],
     extras_require={
         'test': [
