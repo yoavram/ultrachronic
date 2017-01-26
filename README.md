@@ -19,6 +19,8 @@ Latest:
 pip install git+https://github.com/yoavram/ultrachronic.git
 ```
 
+Supports Python 3.4 and 3.5.
+
 ## Test
 
 Requirements:
