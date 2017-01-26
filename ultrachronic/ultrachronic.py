@@ -37,7 +37,7 @@ def jsonify_result(f):
     return wrapper
 
 
-def repeat(f, reps, cpus=0, **kwargs):
+def repeat(f, reps, cpus, **kwargs):
     fname = f.__name__
     print("Starting {} {} times with:".format(fname, reps))
     print(kwargs)
