@@ -55,8 +55,8 @@ def do_something(arg1, arg2):
 @click.command()
 @click.option('--arg1', default=1, type=int, help='Argument 1')
 @click.option('--arg2', default='a', type=str, help='Argument 2')
-@click.option('--reps', default=1, type=int, help='Number of repetitions')
-@click.option('--cpus', default=1, type=int, help='Number of CPUs to use (0 for all available)')
+@click.option('--reps', default=1, type=click.IntRange(1, None), help='Number of repetitions')
+@click.option('--cpus', default=1, type=int, help='Number of CPUs to use (<1 for all available)')
 def main(arg1, arg2, reps, cpus):
 	repeat(do_something, reps, cpus, arg1=arg1, arg2=arg2)
 
