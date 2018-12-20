@@ -1,3 +1,4 @@
+from __future__ import print_function
 from datetime import datetime 
 from uuid import uuid4
 import gzip
